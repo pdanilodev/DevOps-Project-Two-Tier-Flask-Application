@@ -1,77 +1,82 @@
-# 🚀 DevOps Two-Tier Flask Application
+# 🚀 Projeto DevOps — Two-Tier Flask Application
 
-A two-tier web application built with **Flask + MySQL**, containerized with **Docker Compose** and provisioned using **Terraform**.
+Projeto desenvolvido para praticar conceitos de **DevOps, Cloud Computing e Infrastructure as Code (IaC)**, utilizando uma aplicação Flask com MySQL, containers Docker e infraestrutura provisionada com Terraform.
 
-This project was developed as a **DevOps laboratory** to practice Infrastructure as Code (IaC), containerization, AWS infrastructure concepts, and automation.
-
-> **Note:** AWS infrastructure is simulated locally using **Floci**. No production AWS resources are used in this project.
+A infraestrutura AWS é simulada localmente utilizando **Floci**, permitindo praticar conceitos de cloud sem criar recursos reais na AWS.
 
 ---
 
-## 🏗️ Architecture
+## 🎯 Sobre o projeto
+
+A aplicação possui dois componentes principais:
+
+* **Flask** — aplicação web
+* **MySQL** — banco de dados
+
+A aplicação é executada utilizando **Docker Compose**, enquanto a infraestrutura é definida através de **Terraform**.
+
+O projeto também utiliza o **Floci** para simular serviços da AWS localmente.
+
+> ⚠️ Este projeto é um laboratório de DevOps. Os recursos AWS utilizados nos testes são simulados localmente através do Floci e não representam um ambiente de produção na AWS.
+
+---
+
+## 🏗️ Arquitetura
 
 ```text
-                        ┌──────────────────┐
-                        │      GitHub      │
-                        └────────┬─────────┘
-                                 │
-                                 ▼
-                        ┌──────────────────┐
-                        │    Terraform     │
-                        │       IaC        │
-                        └────────┬─────────┘
-                                 │
-                                 ▼
-                        ┌──────────────────┐
-                        │      Floci       │
-                        │ Local AWS Cloud  │
-                        └────────┬─────────┘
-                                 │
-                         ┌───────▼────────┐
-                         │      VPC        │
-                         │  10.0.0.0/16   │
-                         └───────┬────────┘
-                                 │
-                         ┌───────▼────────┐
-                         │ Public Subnet  │
-                         │  10.0.1.0/24   │
-                         └───────┬────────┘
-                                 │
-                    ┌────────────┴────────────┐
-                    │                         │
-             ┌──────▼──────┐          ┌──────▼──────┐
-             │     IGW     │          │    Route    │
-             │             │          │    Table    │
-             └─────────────┘          └─────────────┘
-                    │
-             ┌──────▼──────────┐
-             │ Security Group  │
-             └──────┬──────────┘
-                    │
-             ┌──────▼──────────┐
-             │      EC2        │
-             │   t2.micro      │
-             └─────────────────┘
+                    ┌─────────────────┐
+                    │     GitHub      │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │    Terraform    │
+                    │       IaC       │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │      Floci      │
+                    │ Simulação AWS   │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │       VPC       │
+                    │   10.0.0.0/16   │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │  Public Subnet  │
+                    │   10.0.1.0/24   │
+                    └────────┬────────┘
+                             │
+                    ┌────────┴────────┐
+                    │                 │
+                    ▼                 ▼
+             ┌─────────────┐   ┌─────────────┐
+             │     IGW     │   │ Route Table │
+             └──────┬──────┘   └──────┬──────┘
+                    │                 │
+                    └────────┬────────┘
+                             ▼
+                    ┌─────────────────┐
+                    │ Security Group  │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │      EC2        │
+                    │    t2.micro     │
+                    └─────────────────┘
 ```
 
 ---
 
-## 🎯 Project Overview
+## 🛠️ Tecnologias utilizadas
 
-The application consists of two main services:
-
-* **Flask** — web application/API
-* **MySQL** — relational database
-
-The application runs in containers using Docker Compose, while the infrastructure is defined declaratively with Terraform.
-
-The project also uses Floci to simulate AWS services locally, allowing infrastructure concepts to be tested without creating real cloud resources.
-
----
-
-## 🛠️ Technologies
-
-### Application
+### Aplicação
 
 * Python
 * Flask
@@ -82,12 +87,12 @@ The project also uses Floci to simulate AWS services locally, allowing infrastru
 * Docker
 * Docker Compose
 
-### Infrastructure
+### Cloud e Infraestrutura
 
-* Terraform
 * AWS
-* Floci
+* Terraform
 * AWS CLI
+* Floci
 
 ### DevOps
 
@@ -95,25 +100,59 @@ The project also uses Floci to simulate AWS services locally, allowing infrastru
 * Git
 * GitHub
 * CI/CD
-* Infrastructure automation
+* Automação de infraestrutura
+
+---
+
+## 🐳 Executando a aplicação
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/pdanilodev/DevOps-Project-Two-Tier-Flask-Application.git
+```
+
+Entre no projeto:
+
+```bash
+cd DevOps-Project-Two-Tier-Flask-Application
+```
+
+Inicie os containers:
+
+```bash
+docker compose up -d
+```
+
+Verifique os containers:
+
+```bash
+docker ps
+```
+
+A aplicação estará disponível em:
+
+```text
+http://localhost:5000
+```
 
 ---
 
 ## ☁️ Infrastructure as Code
 
-The infrastructure is managed using Terraform.
+A infraestrutura é definida utilizando **Terraform**.
 
-Current resources include:
+Os recursos atualmente configurados são:
 
 * VPC
-* Public Subnet
+* Subnet pública
 * Internet Gateway
 * Route Table
 * Route Table Association
 * Security Group
-* EC2 Instance
+* EC2
 
-Example Terraform structure:
+Estrutura:
 
 ```text
 terraform/
@@ -126,106 +165,69 @@ terraform/
 └── ec2.tf
 ```
 
-This approach allows the infrastructure to be versioned, reviewed, and recreated using code instead of manually configuring resources.
+Dessa forma, a infraestrutura pode ser definida, versionada e reproduzida através de código.
 
 ---
 
-## 🧪 Local AWS Environment
+## 🧪 Floci
 
-Instead of deploying directly to AWS, this project uses **Floci** to simulate AWS services locally.
+O **Floci** é utilizado neste projeto para simular recursos compatíveis com a AWS localmente.
 
-Terraform communicates with the local AWS-compatible endpoint:
+O Terraform se comunica com o endpoint local:
 
 ```text
 http://localhost:4566
 ```
 
-This makes it possible to practice AWS infrastructure provisioning while keeping the project local.
+Isso permite testar a criação e gerenciamento da infraestrutura sem precisar provisionar recursos reais na AWS.
 
 ---
 
-## 🐳 Running the Application
+## 🚀 Executando o Terraform
 
-Clone the repository:
-
-```bash
-git clone https://github.com/pdanilodev/DevOps-Project-Two-Tier-Flask-Application.git
-cd DevOps-Project-Two-Tier-Flask-Application
-```
-
-Start the application:
-
-```bash
-docker compose up -d
-```
-
-Check the running containers:
-
-```bash
-docker ps
-```
-
-The Flask application will be available at:
-
-```text
-http://localhost:5000
-```
-
----
-
-## 🏗️ Deploying the Infrastructure Locally
-
-Make sure Floci is running on:
-
-```text
-http://localhost:4566
-```
-
-Then enter the Terraform directory:
+Entre na pasta:
 
 ```bash
 cd terraform
 ```
 
-Initialize Terraform:
+Inicialize o Terraform:
 
 ```bash
 terraform init
 ```
 
-Format the configuration:
+Formate os arquivos:
 
 ```bash
 terraform fmt
 ```
 
-Validate the configuration:
+Valide a configuração:
 
 ```bash
 terraform validate
 ```
 
-Review the infrastructure plan:
+Visualize o plano:
 
 ```bash
 terraform plan
 ```
 
-Apply the infrastructure:
+Aplique a infraestrutura:
 
 ```bash
 terraform apply
 ```
 
-After confirmation, Terraform provisions the resources in the local Floci environment.
-
 ---
 
-## 🔎 Checking the Infrastructure
+## 🔎 Verificando os recursos
 
-The AWS CLI can be used to inspect the simulated infrastructure.
+Com o Floci em execução, é possível utilizar a AWS CLI para consultar os recursos criados.
 
-For example:
+Por exemplo:
 
 ```bash
 aws ec2 describe-instances \
@@ -233,7 +235,7 @@ aws ec2 describe-instances \
   --endpoint-url http://localhost:4566
 ```
 
-You can also inspect the VPC:
+Para consultar as VPCs:
 
 ```bash
 aws ec2 describe-vpcs \
@@ -243,29 +245,7 @@ aws ec2 describe-vpcs \
 
 ---
 
-## 📸 Project Screenshots
-
-Screenshots demonstrating the project can be added here.
-
-### Application
-
-![Flask Application](docs/screenshots/flask-app.png)
-
-### Terraform
-
-![Terraform Apply](docs/screenshots/terraform-apply.png)
-
-### Infrastructure
-
-![AWS CLI Infrastructure](docs/screenshots/aws-cli.png)
-
-### Architecture
-
-![Architecture](docs/screenshots/architecture.png)
-
----
-
-## 📁 Project Structure
+## 📁 Estrutura do projeto
 
 ```text
 DevOps-Project-Two-Tier-Flask-Application/
@@ -287,91 +267,96 @@ DevOps-Project-Two-Tier-Flask-Application/
 │   ├── security_group.tf
 │   └── ec2.tf
 │
-├── docs/
-│   └── screenshots/
-│
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🔐 Security
+## 🔐 Segurança
 
-Sensitive and generated Terraform files are intentionally excluded from version control.
+Arquivos gerados pelo Terraform e possíveis arquivos com informações sensíveis não devem ser versionados.
+
+O `.gitignore` inclui:
 
 ```gitignore
+# Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
+crash.log
 *.tfvars
 *.tfvars.json
+
+# Ambiente
 .env
 .env.*
+!.env.example
 ```
 
-The repository contains the Terraform configuration files (`.tf`) but does not include Terraform's downloaded providers or state files.
+Os arquivos de configuração `.tf` permanecem no GitHub porque fazem parte da infraestrutura como código.
 
 ---
 
-## 🚧 Roadmap
+## 🚧 Próximos passos
 
-The project is being developed incrementally as a DevOps laboratory.
+### Concluído
 
-### Completed
-
-* [x] Flask application
-* [x] MySQL database
-* [x] Docker containerization
+* [x] Aplicação Flask
+* [x] Banco de dados MySQL
+* [x] Containerização com Docker
 * [x] Docker Compose
-* [x] Terraform configuration
-* [x] Local AWS environment with Floci
+* [x] Configuração do Terraform
+* [x] Floci
 * [x] VPC
-* [x] Public Subnet
+* [x] Subnet pública
 * [x] Internet Gateway
 * [x] Route Table
 * [x] Security Group
-* [x] EC2 instance
+* [x] EC2
 
-### Next Steps
+### Próximas etapas
 
-* [ ] Terraform automation with GitHub Actions
-* [ ] Terraform format and validation workflow
-* [ ] Terraform plan workflow
-* [ ] Automated infrastructure deployment
-* [ ] Container image security scanning
-* [ ] Improve observability
-* [ ] Expand CI/CD pipeline
+* [ ] GitHub Actions
+* [ ] `terraform fmt` automatizado
+* [ ] `terraform validate`
+* [ ] `terraform plan`
+* [ ] Automação do `terraform apply`
+* [ ] Pipeline de CI/CD
+* [ ] Scan de segurança das imagens Docker
+* [ ] Melhorias de observabilidade
 
 ---
 
-## 📚 What I Practiced
+## 📚 Conceitos praticados
 
-This project focuses on practical DevOps concepts such as:
+Durante o desenvolvimento deste projeto, são praticados conceitos como:
 
 * Infrastructure as Code
-* Terraform resource management
-* AWS networking fundamentals
-* Containerization
-* Docker Compose
-* Local cloud simulation
+* Terraform
+* AWS
 * AWS CLI
-* Git and GitHub workflows
-* CI/CD automation
-
-The main goal is to understand how application code, containers, infrastructure, and automation can work together in a modern DevOps workflow.
+* Docker
+* Docker Compose
+* Flask
+* MySQL
+* Git e GitHub
+* CI/CD
+* Automação de infraestrutura
+* Redes na AWS
+* Cloud Computing
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Autor
 
 **Pablo Danilo**
 
-Computer Science student focused on **DevOps, Cloud Computing and Platform Engineering**.
+Estudante de **Ciência da Computação**, com foco em **DevOps, Cloud Computing e Platform Engineering**.
 
 * GitHub: [@pdanilodev](https://github.com/pdanilodev)
 * LinkedIn: [linkedin.com/in/pdanilodev](https://www.linkedin.com/in/pdanilodev)
 
 ---
 
-⭐ If you found this project useful, feel free to explore the repository and follow the development of the project.
+⭐ Projeto desenvolvido como parte do meu laboratório prático de DevOps.
