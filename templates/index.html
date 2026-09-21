@@ -1,230 +1,344 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prashant | Flask App 🚀</title>
+    ```
+    <title>DevOps Lab | Flask + Terraform</title>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b1120;
+        color: #e5e7eb;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(1100px, 90%);
+        margin: 0 auto;
+      }
+
+      header {
+        border-bottom: 1px solid #1e293b;
+        padding: 24px 0;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .logo span {
+        color: #38bdf8;
+      }
+
+      nav a {
+        color: #94a3b8;
+        text-decoration: none;
+        margin-left: 24px;
+        font-size: 14px;
+      }
+
+      nav a:hover {
+        color: #38bdf8;
+      }
+
+      .hero {
+        padding: 90px 0 70px;
+        max-width: 800px;
+      }
+
+      .badge {
+        display: inline-block;
+        border: 1px solid #334155;
+        background: #111827;
+        color: #38bdf8;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 7vw, 72px);
+        line-height: 1;
+        letter-spacing: -3px;
+        color: #f8fafc;
+        margin-bottom: 24px;
+      }
+
+      .hero p {
+        color: #94a3b8;
+        font-size: 18px;
+        line-height: 1.7;
+        max-width: 700px;
+      }
+
+      .status {
+        margin-top: 32px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+        background: #111827;
+        border: 1px solid #1e293b;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        background: #22c55e;
+        border-radius: 50%;
+      }
+
+      section {
+        padding: 50px 0;
+      }
+
+      .section-title {
+        font-size: 28px;
+        margin-bottom: 12px;
+        color: #f8fafc;
+      }
+
+      .section-description {
+        color: #64748b;
+        margin-bottom: 30px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        background: #111827;
+        border: 1px solid #1e293b;
+        border-radius: 12px;
+        padding: 24px;
+      }
+
+      .card h3 {
+        color: #f8fafc;
+        margin-bottom: 10px;
+        font-size: 17px;
+      }
+
+      .card p {
+        color: #64748b;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .architecture {
+        background: #111827;
+        border: 1px solid #1e293b;
+        border-radius: 12px;
+        padding: 30px;
+        font-family: monospace;
+        color: #94a3b8;
+        line-height: 2;
+        overflow-x: auto;
+      }
+
+      .highlight {
+        color: #38bdf8;
+      }
+
+      .green {
+        color: #22c55e;
+      }
+
+      footer {
+        border-top: 1px solid #1e293b;
+        margin-top: 50px;
+        padding: 30px 0;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      @media (max-width: 800px) {
+        .grid {
+          grid-template-columns: 1fr;
         }
 
-        body {
-            background: linear-gradient(160deg, #0C0D16, #1A1C2B);
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        nav a {
+          display: none;
         }
 
-        /* Flex container for profile + content */
-        .container {
-            display: flex;
-            flex-direction: row;
-            max-width: 1050px;
-            width: 100%;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        .hero {
+          padding-top: 60px;
         }
-
-        /* Left side: profile photo */
-        .profile-photo {
-            flex: 0 0 200px;
-            margin-right: 30px;
-        }
-
-        .profile-photo img {
-            width: 100%;
-            border-radius: 50%;
-            border: 3px solid #5599FF;
-            box-shadow: 0 4px 15px rgba(85, 153, 255, 0.5);
-        }
-
-        /* Right side: content */
-        .content {
-            flex: 1;
-        }
-
-        .header h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #5599FF;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 1rem;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
-
-        .about {
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .about h2 {
-            font-size: 1.3rem;
-            color: #5599FF;
-            margin-bottom: 8px;
-        }
-
-        .about p {
-            font-size: 0.95rem;
-            color: #ddd;
-            line-height: 1.5;
-        }
-
-        .messages {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: rgba(85, 153, 255, 0.08);
-            border: 1px solid rgba(85, 153, 255, 0.2);
-            border-radius: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-            text-align: left;
-        }
-
-        .messages p {
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.07);
-            border-radius: 8px;
-            margin-bottom: 6px;
-            font-size: 0.95rem;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(85, 153, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        input[type="text"]:focus {
-            border-color: #5599FF;
-            box-shadow: 0 0 12px rgba(85, 153, 255, 0.6);
-            outline: none;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background: #5599FF;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        input[type="submit"]:hover {
-            background: #417ad6;
-            box-shadow: 0 0 15px rgba(85, 153, 255, 0.6);
-            transform: translateY(-2px);
-        }
-
-        /* Responsive */
-        @media (max-width: 800px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .profile-photo {
-                margin-right: 0;
-                margin-bottom: 20px;
-                flex: 0 0 auto;
-            }
-        }
+      }
     </style>
-</head>
+    ```
+  </head>
 
-<body>
-    <div class="container">
-        <!-- Profile photo -->
-        <div class="profile-photo">
-            <img src="1.png" alt="Prashant Photo">
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">Pablo<span>.dev</span></div>
+
+          ```
+          <div>
+            <a href="#project">Project</a>
+            <a href="#stack">Stack</a>
+            <a href="#architecture">Architecture</a>
+          </div>
+        </nav>
+      </div>
+      ```
+    </header>
+
+    <main>
+      ```
+      <section class="hero">
+        <div class="container">
+          <div class="badge">DEVOPS LABORATORY</div>
+
+          <h1>
+            Flask application.<br />
+            Infrastructure as Code.
+          </h1>
+
+          <p>
+            A hands-on DevOps project combining a Flask application, MySQL,
+            Docker and Terraform to practice cloud infrastructure, automation
+            and CI/CD workflows.
+          </p>
+
+          <div class="status">
+            <span class="dot"></span>
+            Application running
+          </div>
         </div>
+      </section>
 
-        <!-- Content -->
-        <div class="content">
-            <div class="header">
-                <h1>Prashant Gohil | DevOps Enthusiast</h1>
-                <p>Student | Aspiring Cloud & DevOps Engineer</p>
+      <section id="project">
+        <div class="container">
+          <h2 class="section-title">Project</h2>
+
+          <p class="section-description">
+            Built as a practical environment for studying DevOps and Cloud
+            Engineering.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Containerized Application</h3>
+              <p>
+                Flask and MySQL running through Docker Compose, with isolated
+                containers and application networking.
+              </p>
             </div>
 
-            <div class="about">
-                <h2>About Me</h2>
-                <p>Hi, I'm <b>Prashant</b> 👋, a student and aspiring Cloud & DevOps engineer.</p>
-                <p style="margin-top:10px;">
-                    <b>Project:</b> I have deployed a 2-tier Flask application (Flask + MySQL) on AWS EC2 using Docker.  
-                    I used Docker Compose to manage both containers with volumes and a custom network.  
-                    The source code is hosted on GitHub, and Jenkins is integrated to set up a CI/CD pipeline for automated deployment.
-                </p>
+            <div class="card">
+              <h3>Infrastructure as Code</h3>
+              <p>
+                AWS-like infrastructure defined and provisioned using Terraform.
+              </p>
             </div>
 
-            <div class="messages">
-                {% for message in messages %}
-                    <p>{{ message[0] }}</p>
-                {% endfor %}
+            <div class="card">
+              <h3>Automation</h3>
+              <p>
+                The project is designed to evolve into an automated CI/CD
+                workflow using GitHub Actions.
+              </p>
             </div>
-
-            <form id="messageForm">
-                <input type="text" name="new_message" placeholder="Type your message..." required>
-                <input type="submit" value="Send">
-            </form>
+          </div>
         </div>
-    </div>
+      </section>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#messageForm").on("submit", function(event) {
-                event.preventDefault();
-                let messageInput = $("input[name='new_message']");
-                let message = messageInput.val().trim();
+      <section id="stack">
+        <div class="container">
+          <h2 class="section-title">Technology Stack</h2>
 
-                if (message === "") {
-                    alert("Message cannot be empty!");
-                    return;
-                }
+          <p class="section-description">Tools used throughout the project.</p>
 
-                $.ajax({
-                    url: "/submit",
-                    type: "POST",
-                    data: { new_message: message },
-                    success: function(response) {
-                        if (response && response.message) {
-                            $(".messages").append("<p>" + response.message + "</p>");
-                            messageInput.val("");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", status, error);
-                    }
-                });
-            });
-        });
-    </script>
-</body>
+          <div class="grid">
+            <div class="card">
+              <h3>Application</h3>
+              <p>Python · Flask · MySQL</p>
+            </div>
+
+            <div class="card">
+              <h3>Infrastructure</h3>
+              <p>Terraform · AWS CLI · Floci</p>
+            </div>
+
+            <div class="card">
+              <h3>DevOps</h3>
+              <p>Docker · Git · GitHub · GitHub Actions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <div class="container">
+          <h2 class="section-title">Infrastructure</h2>
+
+          <p class="section-description">
+            Current infrastructure managed through Terraform.
+          </p>
+
+          <div class="architecture">
+            GitHub
+            <br />
+            &nbsp;│
+            <br />
+            &nbsp;▼
+            <br />
+            <span class="highlight">Terraform</span>
+            <br />
+            &nbsp;│
+            <br />
+            &nbsp;▼
+            <br />
+            <span class="green">Floci</span>
+            <br />
+            &nbsp;│
+            <br />
+            ├── VPC · 10.0.0.0/16
+            <br />
+            │ ├── Public Subnet · 10.0.1.0/24
+            <br />
+            │ ├── Internet Gateway
+            <br />
+            │ ├── Route Table
+            <br />
+            │ ├── Security Group
+            <br />
+            │ └── EC2 Instance
+          </div>
+        </div>
+      </section>
+      ```
+    </main>
+
+    <footer>
+      <div class="container">DevOps Laboratory · Pablo Danilo</div>
+    </footer>
+  </body>
 </html>
